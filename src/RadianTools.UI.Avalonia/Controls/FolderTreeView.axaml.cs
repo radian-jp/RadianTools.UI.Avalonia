@@ -12,11 +12,11 @@ namespace RadianTools.UI.Avalonia.Controls;
 public partial class FolderTreeView : UserControl, IDisposable
 {
     // SelectedItem (読み取り専用, バインディング用)
-    public static readonly StyledProperty<FolderTreeItemViewModel?> SelectedItemProperty =
-        AvaloniaProperty.Register<FolderTreeView, FolderTreeItemViewModel?>(
+    public static readonly StyledProperty<IFolderItem?> SelectedItemProperty =
+        AvaloniaProperty.Register<FolderTreeView, IFolderItem?>(
             nameof(SelectedItem), defaultBindingMode: BindingMode.OneWayToSource);
 
-    public FolderTreeItemViewModel? SelectedItem
+    public IFolderItem? SelectedItem
     {
         get => GetValue(SelectedItemProperty);
         private set => SetValue(SelectedItemProperty, value);
@@ -34,14 +34,14 @@ public partial class FolderTreeView : UserControl, IDisposable
     }
 
     // RoutedEvent: FolderSelected
-    public static readonly RoutedEvent<FolderSelectedEventArgs> FolderSelectedEvent =
-        RoutedEvent.Register<FolderTreeView, FolderSelectedEventArgs>(
-            nameof(FolderSelected), RoutingStrategies.Bubble);
+    public static readonly RoutedEvent<SelectedItemChangedEventArgs> SelectedItemChangedEvent =
+        RoutedEvent.Register<FolderTreeView, SelectedItemChangedEventArgs>(
+            nameof(SelectedItemChanged), RoutingStrategies.Bubble);
 
-    public event EventHandler<FolderSelectedEventArgs> FolderSelected
+    public event EventHandler<SelectedItemChangedEventArgs> SelectedItemChanged
     {
-        add => AddHandler(FolderSelectedEvent, value);
-        remove => RemoveHandler(FolderSelectedEvent, value);
+        add => AddHandler(SelectedItemChangedEvent, value);
+        remove => RemoveHandler(SelectedItemChangedEvent, value);
     }
 
     private readonly FolderTreeViewModel _vm;
@@ -77,15 +77,15 @@ public partial class FolderTreeView : UserControl, IDisposable
         if (e.PropertyName != nameof(FolderTreeViewModel.SelectedItem))
             return;
 
-        SelectedItem = _vm.SelectedItem;
+        SelectedItem = _vm.SelectedItem?.Item;
         SelectedTreePath = _vm.SelectedItem?.Item.TreePath;
 
         if (SelectedItem == null)
             return;
 
-        RaiseEvent(new FolderSelectedEventArgs(
-            FolderSelectedEvent,
-            SelectedItem.Item
+        RaiseEvent(new SelectedItemChangedEventArgs(
+            SelectedItemChangedEvent,
+            SelectedItem
         ));
     }
 
@@ -127,12 +127,11 @@ public partial class FolderTreeView : UserControl, IDisposable
 }
 
 // RoutedEventArgs
-public class FolderSelectedEventArgs : RoutedEventArgs
+public class SelectedItemChangedEventArgs : RoutedEventArgs
 {
     public IFolderItem Item { get; }
 
-    public FolderSelectedEventArgs(RoutedEvent routedEvent, IFolderItem item)
-        : base(routedEvent)
+    public SelectedItemChangedEventArgs(RoutedEvent routedEvent, IFolderItem item) : base(routedEvent)
     {
         Item = item;
     }
