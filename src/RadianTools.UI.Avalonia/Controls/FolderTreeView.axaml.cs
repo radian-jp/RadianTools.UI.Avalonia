@@ -11,7 +11,6 @@ namespace RadianTools.UI.Avalonia.Controls;
 
 public partial class FolderTreeView : UserControl, IDisposable
 {
-    // SelectedItem (読み取り専用, バインディング用)
     public static readonly StyledProperty<IFolderItem?> SelectedItemProperty =
         AvaloniaProperty.Register<FolderTreeView, IFolderItem?>(
             nameof(SelectedItem), defaultBindingMode: BindingMode.OneWayToSource);
@@ -22,7 +21,6 @@ public partial class FolderTreeView : UserControl, IDisposable
         private set => SetValue(SelectedItemProperty, value);
     }
 
-    // SelectedTreePath (TwoWay)
     public static readonly StyledProperty<string?> SelectedTreePathProperty =
         AvaloniaProperty.Register<FolderTreeView, string?>(
             nameof(SelectedTreePath), defaultBindingMode: BindingMode.TwoWay);
@@ -33,7 +31,6 @@ public partial class FolderTreeView : UserControl, IDisposable
         set => SetValue(SelectedTreePathProperty, value);
     }
 
-    // RoutedEvent: FolderSelected
     public static readonly RoutedEvent<SelectedItemChangedEventArgs> SelectedItemChangedEvent =
         RoutedEvent.Register<FolderTreeView, SelectedItemChangedEventArgs>(
             nameof(SelectedItemChanged), RoutingStrategies.Bubble);
@@ -126,7 +123,6 @@ public partial class FolderTreeView : UserControl, IDisposable
     private void InitializeComponent() => AvaloniaXamlLoader.Load(this);
 }
 
-// RoutedEventArgs
 public class SelectedItemChangedEventArgs : RoutedEventArgs
 {
     public IFolderItem Item { get; }
