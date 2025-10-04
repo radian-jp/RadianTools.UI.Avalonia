@@ -1,0 +1,17 @@
+﻿namespace RadianTools.UI.Avalonia.Common;
+
+public interface IFolderItem : IDisposable
+{
+    IFolderItem? Parent { get; }
+    string FilePath { get; }
+    string TreePath { get; }
+    string DisplayName { get; }
+    bool IsFolder { get; }
+    bool HasSubFolder { get; }
+    object? Icon { get; }
+    bool IsDummy { get; }
+
+    IReadOnlyList<IFolderItem> GetFolders();
+    IReadOnlyList<IFolderItem> GetFiles();
+    IReadOnlyList<IFolderItem> GetAllChilds();
+}

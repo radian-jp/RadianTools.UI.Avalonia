@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadianTools.UI.Avalonia", "RadianTools.UI.Avalonia\RadianTools.UI.Avalonia.csproj", "{40DBCBEF-4329-45B2-A582-38E834910331}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadianTools.UI.Avalonia.Windows", "RadianTools.UI.Avalonia.Windows\RadianTools.UI.Avalonia.Windows.csproj", "{1964FB45-0A3F-43F9-A6A0-A94315AB6600}"
+	ProjectSection(ProjectDependencies) = postProject
+		{40DBCBEF-4329-45B2-A582-38E834910331} = {40DBCBEF-4329-45B2-A582-38E834910331}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadianTools.UI.Avalonia.Windows.Sample", "RadianTools.UI.Avalonia.Windows.Sample\RadianTools.UI.Avalonia.Windows.Sample.csproj", "{61430114-48F0-4BDA-AB81-CECE64D6A664}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1964FB45-0A3F-43F9-A6A0-A94315AB6600} = {1964FB45-0A3F-43F9-A6A0-A94315AB6600}
+		{40DBCBEF-4329-45B2-A582-38E834910331} = {40DBCBEF-4329-45B2-A582-38E834910331}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40DBCBEF-4329-45B2-A582-38E834910331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40DBCBEF-4329-45B2-A582-38E834910331}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40DBCBEF-4329-45B2-A582-38E834910331}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40DBCBEF-4329-45B2-A582-38E834910331}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1964FB45-0A3F-43F9-A6A0-A94315AB6600}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1964FB45-0A3F-43F9-A6A0-A94315AB6600}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1964FB45-0A3F-43F9-A6A0-A94315AB6600}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1964FB45-0A3F-43F9-A6A0-A94315AB6600}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61430114-48F0-4BDA-AB81-CECE64D6A664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61430114-48F0-4BDA-AB81-CECE64D6A664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61430114-48F0-4BDA-AB81-CECE64D6A664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61430114-48F0-4BDA-AB81-CECE64D6A664}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {28171740-1FE0-4088-A00A-66D44ACE5BB6}
+	EndGlobalSection
+EndGlobal
