@@ -209,7 +209,7 @@ public struct BOOL : IEquatable<BOOL>
 
     public bool Equals(BOOL other) => _intValue == other._intValue;
 
-    public static implicit operator bool(BOOL value) => value._intValue == 0;
+    public static implicit operator bool(BOOL value) => value._intValue > 0;
 }
 
 [StructLayout(LayoutKind.Sequential)]
