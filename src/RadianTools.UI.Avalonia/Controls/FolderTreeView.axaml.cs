@@ -31,6 +31,36 @@ public partial class FolderTreeView : UserControl, IDisposable
         set => SetValue(SelectedTreePathProperty, value);
     }
 
+    public static readonly StyledProperty<double> IconSizeProperty =
+        AvaloniaProperty.Register<FolderTreeView, double>(
+            nameof(IconSize), defaultValue: 16);
+
+    public double IconSize
+    {
+        get => GetValue(IconSizeProperty);
+        set => SetValue(IconSizeProperty, value);
+    }
+
+    public static readonly StyledProperty<Thickness> IconMarginProperty =
+        AvaloniaProperty.Register<FolderTreeView, Thickness>(
+            nameof(IconMargin), defaultValue: new Thickness(2));
+
+    public Thickness IconMargin
+    {
+        get => GetValue(IconMarginProperty);
+        set => SetValue(IconMarginProperty, value);
+    }
+
+    public static readonly StyledProperty<Thickness> TextMarginProperty =
+        AvaloniaProperty.Register<FolderTreeView, Thickness>(
+            nameof(TextMargin), defaultValue: new Thickness(2));
+
+    public Thickness TextMargin
+    {
+        get => GetValue(TextMarginProperty);
+        set => SetValue(TextMarginProperty, value);
+    }
+
     public static readonly RoutedEvent<SelectedItemChangedEventArgs> SelectedItemChangedEvent =
         RoutedEvent.Register<FolderTreeView, SelectedItemChangedEventArgs>(
             nameof(SelectedItemChanged), RoutingStrategies.Bubble);
@@ -55,7 +85,6 @@ public partial class FolderTreeView : UserControl, IDisposable
 
         _vm.PropertyChanged += OnVmPropertyChanged;
 
-        // Control.SelectedTreePath ¨ VM “¯Šú
         this.GetObservable(SelectedTreePathProperty).Subscribe(path =>
         {
             if (string.IsNullOrEmpty(path))

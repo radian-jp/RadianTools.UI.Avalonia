@@ -3,29 +3,32 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:vm="clr-namespace:RadianTools.UI.Avalonia.ViewModels"
+    x:Name="root"
     x:DataType="vm:FolderTreeViewModel">
 
-  <TreeView
-      x:Name="treeView"
-      ItemsSource="{Binding RootItems}"
-      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+    <TreeView
+        x:Name="treeView"
+        ItemsSource="{Binding RootItems}"
+        SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
 
-    <!-- 展開状態を ViewModel にバインド -->
-    <TreeView.Styles>
-      <Style x:DataType="vm:FolderTreeItemViewModel" Selector="TreeViewItem">
-        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-      </Style>
-    </TreeView.Styles>
+        <TreeView.Styles>
+            <Style x:DataType="vm:FolderTreeItemViewModel" Selector="TreeViewItem">
+                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                <Setter Property="MinHeight" Value="0" />
+            </Style>
+        </TreeView.Styles>
 
-    <!-- ノードの表示テンプレート -->
-    <TreeView.DataTemplates>
-      <TreeDataTemplate x:DataType="vm:FolderTreeItemViewModel"
-                        ItemsSource="{Binding Children}">
-        <StackPanel Orientation="Horizontal" Spacing="4">
-          <Image Width="16" Height="16" Source="{Binding Icon}" />
-          <TextBlock Text="{Binding Name}" />
-        </StackPanel>
-      </TreeDataTemplate>
-    </TreeView.DataTemplates>
-  </TreeView>
+        <TreeView.DataTemplates>
+            <TreeDataTemplate x:DataType="vm:FolderTreeItemViewModel" ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal">
+                    <Image
+                        Width="{Binding IconSize, ElementName=root}"
+                        Height="{Binding IconSize, ElementName=root}"
+                        Margin="{Binding IconMargin, ElementName=root}"
+                        Source="{Binding Icon}" />
+                    <TextBlock Margin="{Binding TextMargin, ElementName=root}" Text="{Binding Name}" />
+                </StackPanel>
+            </TreeDataTemplate>
+        </TreeView.DataTemplates>
+    </TreeView>
 </UserControl>
