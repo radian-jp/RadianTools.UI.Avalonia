@@ -20,14 +20,19 @@
 
         <TreeView.DataTemplates>
             <TreeDataTemplate x:DataType="vm:FolderTreeItemViewModel" ItemsSource="{Binding Children}">
-                <StackPanel Orientation="Horizontal">
+                <Grid ColumnDefinitions="Auto,*">
                     <Image
+                        Grid.Column="0"
                         Width="{Binding IconSize, ElementName=root}"
                         Height="{Binding IconSize, ElementName=root}"
                         Margin="{Binding IconMargin, ElementName=root}"
                         Source="{Binding Icon}" />
-                    <TextBlock Margin="{Binding TextMargin, ElementName=root}" Text="{Binding Name}" />
-                </StackPanel>
+                    <TextBlock
+                        Grid.Column="1"
+                        Margin="{Binding TextMargin, ElementName=root}"
+                        Text="{Binding Name}"
+                        TextTrimming="CharacterEllipsis" />
+                </Grid>
             </TreeDataTemplate>
         </TreeView.DataTemplates>
     </TreeView>
