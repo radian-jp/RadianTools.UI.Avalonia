@@ -48,6 +48,11 @@ public class FolderTreeItemViewModel : ViewModelBase
         try
         {
             var folders = Item.GetFolders();
+            if (Item.Parent != null && Item.Parent.IsFolder)
+                folders = folders
+                    .OrderBy(x=>x.IsFolder)
+                    .ThenBy(x=>x.DisplayName).ToList();
+
             foreach (var folder in folders)
                 Children.Add(new FolderTreeItemViewModel(ItemFactory, folder));
         }
