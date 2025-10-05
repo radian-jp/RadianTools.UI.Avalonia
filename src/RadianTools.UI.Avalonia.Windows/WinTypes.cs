@@ -24,7 +24,7 @@ internal enum GPFIDL_FLAGS : uint
     GPFIDL_UNCPRINTER = 2U,
 }
 
-public enum SHIL : uint
+internal enum SHIL : uint
 {
     LARGE = 0,
     SMALL,
@@ -183,7 +183,7 @@ internal enum SHGFI_FLAGS : uint
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public struct HRESULT
+internal struct HRESULT
 {
     private int _value;
     int Value => _value;
@@ -201,11 +201,11 @@ public struct HRESULT
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public struct BOOL : IEquatable<BOOL>
+internal struct BOOL : IEquatable<BOOL>
 {
     int _intValue;
-    public BOOL(bool value) => _intValue = value ? 1 : 0;
-    public BOOL(int value) => _intValue = value > 0 ? 1 : 0;
+    internal BOOL(bool value) => _intValue = value ? 1 : 0;
+    internal BOOL(int value) => _intValue = value > 0 ? 1 : 0;
 
     public bool Equals(BOOL other) => _intValue == other._intValue;
 
@@ -228,7 +228,7 @@ internal struct RECT
 }
 
 [StructLayout(LayoutKind.Sequential)]
-public struct POINT
+internal struct POINT
 {
     internal int x;
     internal int y;
@@ -357,10 +357,10 @@ internal static class Shell32
     internal static extern BOOL ILIsEqual(PIDL pidl1, PIDL pidl2);
 
     [DllImport("SHELL32.dll")]
-    public static extern PIDL ILCombine(PIDL pidl1, PIDL pidl2);
+    internal static extern PIDL ILCombine(PIDL pidl1, PIDL pidl2);
 
     [DllImport("SHELL32.dll", CharSet = CharSet.Unicode)]
-    public static extern PIDL ILCreateFromPath(string pszPath);
+    internal static extern PIDL ILCreateFromPath(string pszPath);
 
     [DllImport("SHELL32.dll", CharSet = CharSet.Unicode)]
     internal static extern IntPtr SHGetFileInfo(string pszPath, FILE_FLAGS_AND_ATTRIBUTES dwFileAttributes, ref SHFILEINFOW psfi, uint cbFileInfo, SHGFI_FLAGS uFlags);
