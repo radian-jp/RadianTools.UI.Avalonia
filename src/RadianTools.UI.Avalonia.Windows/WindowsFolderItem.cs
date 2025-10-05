@@ -37,14 +37,14 @@ public class WindowsFolderItem : IFolderItem
     private object? _icon;
     public bool IsDummy { get; }
 
-    public IReadOnlyList<IFolderItem> GetFolders()
-        => _pidl.GetFolders().Select(p => new WindowsFolderItem(this, p)).ToList();
+    public IEnumerable<IFolderItem> GetFolders()
+        => _pidl.GetFolders().Select(p => new WindowsFolderItem(this, p));
 
-    public IReadOnlyList<IFolderItem> GetFiles()
-        => _pidl.GetFiles().Select(p => new WindowsFolderItem(this, p)).ToList();
+    public IEnumerable<IFolderItem> GetFiles()
+        => _pidl.GetFiles().Select(p => new WindowsFolderItem(this, p));
 
-    public IReadOnlyList<IFolderItem> GetAllChilds()
-        => _pidl.GetAllChilds().Select(p => new WindowsFolderItem(this, p)).ToList();
+    public IEnumerable<IFolderItem> GetAllChilds()
+        => _pidl.GetAllChilds().Select(p => new WindowsFolderItem(this, p));
 
     public void Dispose() => _pidl.Dispose();
 }

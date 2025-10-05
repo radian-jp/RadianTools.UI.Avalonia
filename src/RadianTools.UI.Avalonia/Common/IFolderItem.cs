@@ -11,7 +11,7 @@ public interface IFolderItem : IDisposable
     object? Icon { get; }
     bool IsDummy { get; }
 
-    IReadOnlyList<IFolderItem> GetFolders();
-    IReadOnlyList<IFolderItem> GetFiles();
-    IReadOnlyList<IFolderItem> GetAllChilds();
+    IEnumerable<IFolderItem> GetFolders();
+    IEnumerable<IFolderItem> GetFiles();
+    IEnumerable<IFolderItem> GetAllChilds();
 }

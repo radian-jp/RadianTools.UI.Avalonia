@@ -27,7 +27,7 @@ internal class MockFolderItem : IFolderItem
 
     public bool IsDummy { get; }
 
-    private IReadOnlyList<IFolderItem> _childs = [];
+    private IEnumerable<IFolderItem> _childs = [];
 
     public MockFolderItem(string name, IEnumerable<IFolderItem>? childs = null)
     {
@@ -50,17 +50,17 @@ internal class MockFolderItem : IFolderItem
     {
     }
 
-    public IReadOnlyList<IFolderItem> GetAllChilds()
+    public IEnumerable<IFolderItem> GetAllChilds()
     {
         return _childs;
     }
 
-    public IReadOnlyList<IFolderItem> GetFiles()
+    public IEnumerable<IFolderItem> GetFiles()
     {
         return Array.Empty<IFolderItem>();
     }
 
-    public IReadOnlyList<IFolderItem> GetFolders()
+    public IEnumerable<IFolderItem> GetFolders()
     {
         return _childs;
     }
