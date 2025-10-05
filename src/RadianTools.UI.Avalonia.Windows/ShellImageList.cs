@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace RadianTools.UI.Avalonia.Windows;
 
-public class ShellImageList
+internal class ShellImageList
 {
     public delegate object Converter(int width, int height, int stride, nint src);
 

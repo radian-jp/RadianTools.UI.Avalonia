@@ -4,7 +4,7 @@ using Avalonia.Platform;
 
 namespace RadianTools.UI.Avalonia.Windows;
 
-public class WindowsFolderIconCache : ShellImageList
+internal class WindowsFolderIconCache : ShellImageList
 {
     private static object AvaloniaBitmapConverter(int width, int height, int stride, nint src)
         => new Bitmap(
