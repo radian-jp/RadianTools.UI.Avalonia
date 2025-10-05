@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName></AssemblyName>
-    <Platforms>AnyCPU;x64;x86</Platforms>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,6 +18,16 @@
 
   <PropertyGroup>
     <PathMap>$(MSBuildProjectDirectory)=.</PathMap>
+    <Version>0.0.1</Version>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <Company>RadianTools</Company>
+    <PackageTags>C#;c-sharp;csharp;RadianTools;windows;Avalonia;AvaloniaUI</PackageTags>
+    <Authors>radian</Authors>
+    <Title>$(AssemblyName)</Title>
+    <Description>A collection of reusable UI controls and utilities for Avalonia applications.</Description>
+    <Copyright>Copyright (c) 2025 radian</Copyright>
+    <PackageProjectUrl>https://github.com/radian-jp/RadianTools.UI.Avalonia</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/radian-jp/RadianTools.UI.Avalonia</RepositoryUrl>
   </PropertyGroup>
   
   <ItemGroup>
