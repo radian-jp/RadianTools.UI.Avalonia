@@ -31,10 +31,6 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <Compile Remove="Common\IFolderIconCache.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.3.6" />
     <PackageReference Include="Avalonia.Desktop" Version="11.3.6" />
   </ItemGroup>

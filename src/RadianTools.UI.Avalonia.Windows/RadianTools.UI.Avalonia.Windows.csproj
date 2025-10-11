@@ -27,6 +27,7 @@
     <Copyright>Copyright (c) 2025 radian</Copyright>
     <PackageProjectUrl>https://github.com/radian-jp/RadianTools.UI.Avalonia</PackageProjectUrl>
     <RepositoryUrl>https://github.com/radian-jp/RadianTools.UI.Avalonia</RepositoryUrl>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   
   <ItemGroup>
@@ -37,10 +38,6 @@
     <PackageReference Include="Avalonia" Version="11.3.6" />
     <PackageReference Include="Avalonia.Desktop" Version="11.3.6" />
     <PackageReference Include="Avalonia.Skia" Version="11.3.6" />
-    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.205">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="System.Drawing.Common" Version="9.0.9" />
   </ItemGroup>
 

@@ -285,11 +285,6 @@ internal struct ITEMIDLIST
     internal SHITEMID mkid;
 }
 
-[NativeHandle("global::Windows.Win32.UI.Shell.Common.ITEMIDLIST*")]
-internal partial struct PIDL
-{
-}
-
 [StructLayout(LayoutKind.Explicit, CharSet = CharSet.Unicode)]
 internal struct STRRET
 {
@@ -561,6 +556,11 @@ internal partial struct HICON : IDisposable
         if (value != IntPtr.Zero)
             DestroyIcon(value);
     }
+}
+
+[NativeHandle("global::RadianTools.UI.Avalonia.Windows.ITEMIDLIST*")]
+internal partial struct PIDL
+{
 }
 
 #endregion
