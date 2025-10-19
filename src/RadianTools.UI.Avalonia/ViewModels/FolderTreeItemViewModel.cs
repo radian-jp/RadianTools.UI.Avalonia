@@ -47,7 +47,7 @@ public class FolderTreeItemViewModel : ViewModelBase
 
         try
         {
-            var folders = Item.GetFolders();
+            var folders = Item.EnumFolders();
             if (Item.Parent != null && Item.Parent.IsFolder)
                 folders = folders
                     .OrderBy(x=>x.IsFolder)

@@ -1,4 +1,5 @@
 ﻿using RadianTools.UI.Avalonia.Common;
+using System.IO;
 
 namespace RadianTools.UI.Avalonia.Windows;
 
@@ -22,7 +23,7 @@ public class WindowsFolderItem : IFolderItem
         IsDummy = false;
         _pidl = pidl;
         Parent = parent;
-        TreePath = parent==null ? pidl.DisplayName : $"{parent.TreePath}{Path.DirectorySeparatorChar}{pidl.DisplayName}";
+        TreePath = this.MakeTreePath(parent);
         if (pidl.IsNull)
             return;
 
@@ -37,14 +38,21 @@ public class WindowsFolderItem : IFolderItem
     private object? _icon;
     public bool IsDummy { get; }
 
-    public IEnumerable<IFolderItem> GetFolders()
-        => _pidl.GetFolders().Select(p => new WindowsFolderItem(this, p));
+    public IEnumerable<IFolderItem> EnumFolders()
+    {
+        using var cts = new CancellationTokenSource();
+        var t = _pidl.EnumFoldersAsync(cts.Token);
+        t.ConfigureAwait(false);
+        t.Wait();            
+        return t.Result.Select(p => new WindowsFolderItem(this, p));
+    }
 
-    public IEnumerable<IFolderItem> GetFiles()
-        => _pidl.GetFiles().Select(p => new WindowsFolderItem(this, p));
 
-    public IEnumerable<IFolderItem> GetAllChilds()
-        => _pidl.GetAllChilds().Select(p => new WindowsFolderItem(this, p));
+    public IEnumerable<IFolderItem> EnumFiles()
+        => _pidl.EnumFiles().Select(p => new WindowsFolderItem(this, p));
+
+    public IEnumerable<IFolderItem> EnumAllChilds()
+        => _pidl.EnumAllChilds().Select(p => new WindowsFolderItem(this, p));
 
     public void Dispose() => _pidl.Dispose();
 }

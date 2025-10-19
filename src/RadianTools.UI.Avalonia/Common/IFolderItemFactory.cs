@@ -1,7 +1,14 @@
 ﻿namespace RadianTools.UI.Avalonia.Common;
 
+public enum FolderRootMode
+{
+    DesktopVirtualFolders,
+    LogicalDrives
+}
+
 public interface IFolderItemFactory
 {
-    IReadOnlyList<IFolderItem> GetRootItems();
+    FolderRootMode RootMode { get; set; }
+    IEnumerable<IFolderItem> EnumRootItems();
     IFolderItem GetDummyItem();
 }

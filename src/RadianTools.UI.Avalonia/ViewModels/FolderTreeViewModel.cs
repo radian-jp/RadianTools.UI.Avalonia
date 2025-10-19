@@ -15,7 +15,7 @@ public class FolderTreeViewModel : ViewModelBase
     {
         _factory = factory;
         RootItems = new ObservableCollection<FolderTreeItemViewModel>(
-            factory.GetRootItems().Select(
+            factory.EnumRootItems().Select(
                 item => new FolderTreeItemViewModel(factory, item)
             )
         );

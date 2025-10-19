@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using RadianTools.UI.Avalonia.Windows;
+using System.Runtime.InteropServices;
 
 namespace RadianTools.UI.Avalonia.Windows;
 
@@ -8,6 +9,7 @@ internal class SafePIDL : IDisposable, IEquatable<SafePIDL>
     private bool _mustNotFree;
     private Guid? _KnownFolderId;
     private int? _cachedHashCode;
+    private static readonly STAThreadPool _staPool = new STAThreadPool(threadCount: 2);
 
     public string FilePath { get; }
     public string DisplayName { get; }
@@ -116,30 +118,41 @@ internal class SafePIDL : IDisposable, IEquatable<SafePIDL>
         return result == 0 ? null : fileInfo;
     }
 
-    public IReadOnlyList<SafePIDL> GetFolders()
-        => GetChilds(_SHCONTF.SHCONTF_FOLDERS);
+    public IEnumerable<SafePIDL> EnumFolders(CancellationToken? token = null)
+        => InternalEnumChildsAsync(_SHCONTF.SHCONTF_FOLDERS, token);
 
-    public IReadOnlyList<SafePIDL> GetFiles()
-        => GetChilds(_SHCONTF.SHCONTF_NONFOLDERS);
+    public IEnumerable<SafePIDL> EnumFiles(CancellationToken? token = null)
+        => InternalEnumChildsAsync(_SHCONTF.SHCONTF_NONFOLDERS, token);
 
-    public IReadOnlyList<SafePIDL> GetAllChilds()
-        => GetChilds(_SHCONTF.SHCONTF_FOLDERS | _SHCONTF.SHCONTF_NONFOLDERS);
+    public IEnumerable<SafePIDL> EnumAllChilds(CancellationToken? token = null)
+        => InternalEnumChildsAsync(_SHCONTF.SHCONTF_FOLDERS | _SHCONTF.SHCONTF_NONFOLDERS, token);
 
-    private IReadOnlyList<SafePIDL> GetChilds(_SHCONTF flags)
+    public Task<IEnumerable<SafePIDL>> EnumFoldersAsync(CancellationToken token)
+        => RunSTA(ct => EnumFolders(token), token);
+
+    public Task<IEnumerable<SafePIDL>> EnumFilesAsync(CancellationToken token)
+        => RunSTA(ct => EnumFiles(token), token);
+
+    public Task<IEnumerable<SafePIDL>> EnumAllChildsAsync(CancellationToken token)
+        => RunSTA(ct => EnumAllChilds(token), token);
+
+    private IEnumerable<SafePIDL> InternalEnumChildsAsync(_SHCONTF flags, CancellationToken? token)
     {
-        var list = new List<SafePIDL>();
         using var shellFolder = CreateShellFolder();
         if (shellFolder == null)
-            return list;
+            yield break;
 
         using var enumIDList = shellFolder.EnumObjects(HWND.Null, flags);
         if (enumIDList == null)
-            return list;
+            yield break;
 
         while (enumIDList.Next(this, out var childPidl))
-            list.Add(childPidl);
+        {
+            if(token.HasValue && token.Value.IsCancellationRequested)
+                yield break;
 
-        return list;
+            yield return childPidl;
+        }
     }
 
     public static SafePIDL FromFilePath(string filePath)
@@ -245,4 +258,7 @@ internal class SafePIDL : IDisposable, IEquatable<SafePIDL>
 
     private static SafePIDL Combine(PIDL pidl1, PIDL pidl2)
         => new SafePIDL(Shell32.ILCombine(pidl1, pidl2));
+
+    public static Task<T> RunSTA<T>(Func<CancellationToken, T> func, CancellationToken token)
+        => _staPool.RunAsync(func, token);
 }

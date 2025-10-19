@@ -13,7 +13,7 @@ internal sealed class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        FolderItemFactoryProvider.Register(new WindowsFolderItemFactory(WindowsFolderRootMode.DesktopVirtualFolders));
+        FolderItemFactoryProvider.Register(new WindowsFolderItemFactory());
 
         BuildAvaloniaApp()
         .StartWithClassicDesktopLifetime(args);

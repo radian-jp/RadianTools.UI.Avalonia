@@ -50,17 +50,17 @@ internal class MockFolderItem : IFolderItem
     {
     }
 
-    public IEnumerable<IFolderItem> GetAllChilds()
+    public IEnumerable<IFolderItem> EnumAllChilds()
     {
         return _childs;
     }
 
-    public IEnumerable<IFolderItem> GetFiles()
+    public IEnumerable<IFolderItem> EnumFiles()
     {
         return Array.Empty<IFolderItem>();
     }
 
-    public IEnumerable<IFolderItem> GetFolders()
+    public IEnumerable<IFolderItem> EnumFolders()
     {
         return _childs;
     }

@@ -8,12 +8,14 @@ namespace RadianTools.UI.Avalonia.Common;
 
 internal class MockFolderItemFactory : IFolderItemFactory
 {
+    public FolderRootMode RootMode { get; set; } = FolderRootMode.DesktopVirtualFolders;
+
     public IFolderItem GetDummyItem()
     {
         return new MockFolderItem();
     }
 
-    public IReadOnlyList<IFolderItem> GetRootItems()
+    public IEnumerable<IFolderItem> EnumRootItems()
     {
         return new List<IFolderItem>
         {
